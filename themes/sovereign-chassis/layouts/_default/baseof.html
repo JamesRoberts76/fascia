@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ .Title }}</title>
+  {{ with resources.Get "css/main.css" }}
+    {{ with . | resources.Minify }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ end }}
+  {{ end }}
 </head>
 <body>
   {{ block "main" . }}{{ end }}
