@@ -1,84 +1,36 @@
-// Grab bridge content, data, and containers
-const siteDataEl = document.getElementById('site-data');
-const mapEl = document.getElementById('network-map');
-const notePanel = document.getElementById('field-note-panel');
+document.addEventListener('DOMContentLoaded', () => {
+  const dataElement = document.getElementById('site-data');
+  if (!dataElement) return;
 
-if (!siteDataEl || !mapEl || !notePanel) {
-  console.warn('Fascia: required DOM elements not found');
-} else {
-  let nodes = [];
+  const data = JSON.parse(dataElement.textContent);
+  const panel = document.getElementById('field-note-panel');
+  const controls = document.querySelector('.node-controls');
 
-  try {
-    nodes = JSON.parse(siteDataEl.textContent || '[]');
-  } catch (err) {
-    console.error('Fascia: failed to parse site data JSON', err);
-  }
+  // Dynamically build buttons
+  Object.keys(data).forEach(key => {
+    const node = data[key];
+    const btn = document.createElement('button');
+    btn.className = 'node-trigger';
+    btn.dataset.nodeId = node.id;
+    btn.innerText = node.condition;
+    controls.appendChild(btn);
+  });
 
-  // Basic layout: simple vertical list for now (we can upgrade to SVG later)
-  mapEl.classList.add('fascia-map');
-  notePanel.classList.add('fascia-note-panel');
-
-  if (!Array.isArray(nodes) || nodes.length === 0) {
-    mapEl.textContent = 'No nodes yet. Add places to data/nodes.json.';
-  } else {
-    const list = document.createElement('ul');
-    list.className = 'fascia-node-list';
-
-    nodes.forEach((node, index) => {
-      const item = document.createElement('li');
-      item.className = 'fascia-node';
-      item.tabIndex = 0;
-
-      const label = node.label || node.name || `Node ${index + 1}`;
-      item.textContent = label;
-
-      item.addEventListener('mouseenter', () => {
-        updateNotePanel(node);
-      });
-
-      item.addEventListener('focus', () => {
-        updateNotePanel(node);
-      });
-
-      item.addEventListener('click', () => {
-        updateNotePanel(node, true);
-      });
-
-      list.appendChild(item);
-    });
-
-    mapEl.appendChild(list);
-  }
-}
-
-function updateNotePanel(node, focus = false) {
-  const parts = [];
-
-  if (node.label || node.name) {
-    parts.push(`<strong>${escapeHtml(node.label || node.name)}</strong>`);
-  }
-
-  if (node.description) {
-    parts.push(escapeHtml(node.description));
-  }
-
-  if (node.location) {
-    parts.push(`Location: ${escapeHtml(node.location)}`);
-  }
-
-  if (node.tags && Array.isArray(node.tags) && node.tags.length > 0) {
-    parts.push(`Tags: ${node.tags.map(escapeHtml).join(', ')}`);
-  }
-
-  notePanel.innerHTML = parts.join('<br>');
-  if (focus) notePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+  // Delegated click handler
+  controls.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.node-trigger');
+    if (!trigger) return;
+    
+    const node = data[trigger.dataset.nodeId];
+    if (node) {
+      panel.innerHTML = `
+        <div class="field-note">
+          <h3>${node.condition}</h3>
+          <p><strong>Signal:</strong> ${node.signal}</p>
+          <p><strong>Consequence:</strong> ${node.consequence}</p>
+          <p><strong>Ritual:</strong> ${node.ritual}</p>
+        </div>
+      `;
+    }
+  });
+});
