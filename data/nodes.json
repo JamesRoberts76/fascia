@@ -1,23 +1,18 @@
-[
-  {
-    "id": "gym",
-    "title": "Neighborhood gym",
-    "location": "Local weight room",
-    "note": "A small, familiar space for testing physical limits with basic equipment. Focus: simple compound lifts and presence, not performance.",
-    "category": "training"
+{
+  "gatekeeper": {
+    "id": "gatekeeper",
+    "condition": "The Mask",
+    "signal": "Persistent contraction of the frontalis; a facial posture held for 'performance' rather than utility.",
+    "consequence": "Reduced range of facial fluidity; broadcasts a static, defensive state that masks your genuine presence.",
+    "ritual": "Apply 10 seconds of localized heat. Anchor the scalp; glide the forehead tissue upward until resistance dissipates.",
+    "category": "Facial"
   },
-  {
-    "id": "river",
-    "title": "River crossing",
-    "location": "Outdoor river or cold water spot",
-    "note": "Entering cold moving water, noticing breath, fear, and the urge to retreat. Focus: staying with sensation rather than fighting it.",
-    "category": "elemental"
-  },
-  {
-    "id": "sparring",
-    "title": "Light sparring circle",
-    "location": "Martial arts gym or dojo",
-    "note": "Slow, controlled sparring with clear rules and consent. Focus: reading another body, responding instead of flinching or overpowering.",
-    "category": "contact"
+  "traps": {
+    "id": "traps",
+    "condition": "Executive Brace",
+    "signal": "Chronic shoulder elevation; occupational residue from years of high-stress management.",
+    "consequence": "Narrowed breathing and head-forward projection; broadcasts anxiety during high-stakes scrutiny.",
+    "ritual": "Apply firm downward pressure on the trapezius ridge while slowly rotating the head to the opposite side.",
+    "category": "Structural"
   }
-]
+}
