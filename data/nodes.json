@@ -1,0 +1,23 @@
+[
+  {
+    "id": "gym",
+    "title": "Neighborhood gym",
+    "location": "Local weight room",
+    "note": "A small, familiar space for testing physical limits with basic equipment. Focus: simple compound lifts and presence, not performance.",
+    "category": "training"
+  },
+  {
+    "id": "river",
+    "title": "River crossing",
+    "location": "Outdoor river or cold water spot",
+    "note": "Entering cold moving water, noticing breath, fear, and the urge to retreat. Focus: staying with sensation rather than fighting it.",
+    "category": "elemental"
+  },
+  {
+    "id": "sparring",
+    "title": "Light sparring circle",
+    "location": "Martial arts gym or dojo",
+    "note": "Slow, controlled sparring with clear rules and consent. Focus: reading another body, responding instead of flinching or overpowering.",
+    "category": "contact"
+  }
+]
