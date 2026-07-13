@@ -5,7 +5,7 @@
     </article>
     
     <script id="site-data" type="application/json">
-        {{ jsonify .Site.Data.nodes | safeHTML }}
+        {{- .Site.Data.nodes | jsonify | safeHTML -}}
     </script>
     
     <nav class="node-controls" aria-label="Anatomical Diagnostic Nodes"></nav>
