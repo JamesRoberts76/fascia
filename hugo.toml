@@ -1,5 +1,5 @@
-baseURL = "http://localhost:1313/"
+baseURL = "https://fascia.pages.dev/"
 languageCode = "en-us"
-title = "Masculinity Pilot"
+title = "Fascia Pilot"
 theme = "sovereign-chassis"
-# Trigger rebuild after removing data directory
+disableKinds = ["taxonomy", "term"]
