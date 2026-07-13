@@ -6,22 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const panel = document.getElementById('field-note-panel');
   const controls = document.querySelector('.node-controls');
 
-  // Dynamically build buttons
-  Object.keys(data).forEach(key => {
-    const node = data[key];
-    const btn = document.createElement('button');
-    btn.className = 'node-trigger';
-    btn.dataset.nodeId = node.id;
-    btn.innerText = node.condition;
-    controls.appendChild(btn);
-  });
+  // Verify data is a valid object
+  if (data && typeof data === 'object') {
+    Object.keys(data).forEach(key => {
+      const node = data[key];
+      
+      // ONLY create a button if the object has the required 'id' and 'condition' properties
+      if (node && node.id && node.condition) {
+        const btn = document.createElement('button');
+        btn.className = 'node-trigger';
+        btn.dataset.nodeId = node.id;
+        btn.innerText = node.condition;
+        controls.appendChild(btn);
+      }
+    });
+  }
 
   // Delegated click handler
   controls.addEventListener('click', (e) => {
     const trigger = e.target.closest('.node-trigger');
     if (!trigger) return;
     
-    const node = data[trigger.dataset.nodeId];
+    // Find node by ID within our data object
+    const nodeId = trigger.dataset.nodeId;
+    const node = Object.values(data).find(n => n.id === nodeId);
+    
     if (node) {
       panel.innerHTML = `
         <div class="field-note">
