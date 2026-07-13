@@ -1,14 +1,14 @@
 {{ define "main" }}
 <main>
-  <article class="bridge">
-    {{ .Content }}
-  </article>
-
-  <script id="site-data" type="application/json">
-    {{ jsonify .Site.Data.nodes | safeHTML }}
-  </script>
-
-  {{ partial "map.html" . }}
-  <div id="field-note-panel" role="status" aria-live="polite" aria-atomic="true"></div>
+    <article class="bridge">
+        {{ .Content }}
+    </article>
+    
+    <script id="site-data" type="application/json">
+        {{ jsonify .Site.Data.nodes | safeHTML }}
+    </script>
+    
+    <nav class="node-controls" aria-label="Anatomical Diagnostic Nodes"></nav>
+    <div id="field-note-panel" role="status" aria-live="polite" aria-atomic="true"></div>
 </main>
 {{ end }}
