@@ -3,3 +3,4 @@ languageCode = "en-us"
 title = "Fascia Pilot"
 theme = "sovereign-chassis"
 disableKinds = ["taxonomy", "term"]
+assetDir = "assets"
