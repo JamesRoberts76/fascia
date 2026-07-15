@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>{{ .Title }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }}</title>
 </head>
 <body>
-    {{ block "main" . }}{{ end }}
+  {{ block "main" . }}{{ end }}
 
-    {{- /* Build JS from root-level assets/js/main.js */ -}}
-    {{- $js := resources.Get "js/main.js" | js.Build -}}
+  {{ with resources.Get "js/main.js" }}
+    {{ $js := . | js.Build }}
     <script src="{{ $js.RelPermalink }}" defer></script>
+  {{ end }}
 </body>
 </html>
