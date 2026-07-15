@@ -2,5 +2,5 @@ baseURL = "https://fascia.pages.dev/"
 languageCode = "en-us"
 title = "Fascia Pilot"
 theme = "sovereign-chassis"
-disableKinds = ["taxonomy", "term"]
 assetDir = "assets"
+disableKinds = ["taxonomy", "term"]
