@@ -11,35 +11,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const panel = document.getElementById('field-note-panel');
   const controls = document.querySelector('.node-controls');
 
-  if (!controls || !panel) return;
+  if (!controls || !panel) {
+    console.error("Missing node-controls or field-note-panel.");
+    return;
+  }
 
-  Object.keys(data).forEach(key => {
+  // Build buttons from keyed object (gatekeeper, traps)
+  Object.keys(data).forEach((key) => {
     const node = data[key];
+    if (!node || !node.condition) return;
 
-    if (node && node.id && node.condition) {
-      const btn = document.createElement('button');
-      btn.className = 'node-trigger';
-      btn.dataset.nodeId = key;
-      btn.innerText = node.condition;
-      controls.appendChild(btn);
-    }
+    const btn = document.createElement('button');
+    btn.className = 'node-trigger';
+    btn.dataset.nodeId = key;
+    btn.innerText = node.condition;
+    controls.appendChild(btn);
   });
 
+  // Click handler: update Field Note panel
   controls.addEventListener('click', (e) => {
     const trigger = e.target.closest('.node-trigger');
     if (!trigger) return;
 
     const node = data[trigger.dataset.nodeId];
+    if (!node) return;
 
-    if (node) {
-      panel.innerHTML = `
-        <div class="field-note">
-          <h3>${node.condition}</h3>
-          <p><strong>Signal:</strong> ${node.signal}</p>
-          <p><strong>Consequence:</strong> ${node.consequence}</p>
-          <p><strong>Ritual:</strong> ${node.ritual}</p>
-        </div>
-      `;
-    }
+    panel.innerHTML = `
+      <div class="field-note">
+        <h3>${node.condition}</h3>
+        <p><strong>Signal:</strong> ${node.signal}</p>
+        <p><strong>Consequence:</strong> ${node.consequence}</p>
+        <p><strong>Ritual:</strong> ${node.ritual}</p>
+      </div>
+    `;
   });
 });
