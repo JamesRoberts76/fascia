@@ -6,10 +6,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const data = JSON.parse(dataElement.textContent);
-
-  // DIAGNOSTIC LOG
   console.log("Hugo Data structure:", data);
 
   const panel = document.getElementById('field-note-panel');
   const controls = document.querySelector('.node-controls');
+
+  if (!controls || !panel) return;
+
+  Object.keys(data).forEach(key => {
+    const node = data[key];
+
+    if (node && node.id && node.condition) {
+      const btn = document.createElement('button');
+      btn.className = 'node-trigger';
+      btn.dataset.nodeId = key;
+      btn.innerText = node.condition;
+      controls.appendChild(btn);
+    }
+  });
+
+  controls.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.node-trigger');
+    if (!trigger) return;
+
+    const node = data[trigger.dataset.nodeId];
+
+    if (node) {
+      panel.innerHTML = `
+        <div class="field-note">
+          <h3>${node.condition}</h3>
+          <p><strong>Signal:</strong> ${node.signal}</p>
+          <p><strong>Consequence:</strong> ${node.consequence}</p>
+          <p><strong>Ritual:</strong> ${node.ritual}</p>
+        </div>
+      `;
+    }
+  });
 });
