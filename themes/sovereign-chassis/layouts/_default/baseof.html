@@ -6,11 +6,15 @@
   <title>{{ .Title }}</title>
 </head>
 <body>
+  <nav class="global-nav">
+    <a href="https://fascia.guide">Fascia</a>
+    <a href="https://sober.guide">Sober</a>
+    <!-- Add other domain links here -->
+  </nav>
+
   {{ block "main" . }}{{ end }}
 
-  {{ with resources.Get "js/main.js" }}
-    {{ $js := . | js.Build }}
-    <script src="{{ $js.RelPermalink }}" defer></script>
-  {{ end }}
+  <!-- Plain static JS from /static/js/main.js -->
+  <script src="/js/main.js" defer></script>
 </body>
 </html>
